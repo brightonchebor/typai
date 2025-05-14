@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Audio - Whisper Transcription</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'transcription_app/css/style.css' %}">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="text-center">Upload Audio File</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="uploadForm" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="audioFile" class="form-label">Select Audio File</label>
+                                <input type="file" class="form-control" id="audioFile" name="audio_file" accept="audio/*" required>
+                                <div class="form-text">Supported formats: MP3, WAV, M4A, etc.</div>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary" id="uploadBtn">
+                                    <span id="uploadBtnText">Upload & Transcribe</span>
+                                    <span id="uploadSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <div id="resultSection" class="mt-4 d-none">
+                            <h4>Transcription Result:</h4>
+                            <div class="border rounded p-3 bg-light">
+                                <p id="transcriptionText"></p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 text-center">
+                            <a href="{% url 'index' %}" class="btn btn-outline-secondary">Back to Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadForm = document.getElementById('uploadForm');
+            const uploadBtn = document.getElementById('uploadBtn');
+            const uploadBtnText = document.getElementById('uploadBtnText');
+            const uploadSpinner = document.getElementById('uploadSpinner');
+            const resultSection = document.getElementById('resultSection');
+            const transcriptionText = document.getElementById('transcriptionText');
+            
+            uploadForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                uploadBtn.disabled = true;
+                uploadBtnText.textContent = 'Transcribing...';
+                uploadSpinner.classList.remove('d-none');
+                
+                const formData = new FormData(uploadForm);
+                
+                fetch('/api/upload-audio/', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        transcriptionText.textContent = data.transcription;
+                        resultSection.classList.remove('d-none');
+                    } else {
+                        alert('Error: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred during transcription');
+                })
+                .finally(() => {
+                    // Reset loading state
+                    uploadBtn.disabled = false;
+                    uploadBtnText.textContent = 'Upload & Transcribe';
+                    uploadSpinner.classList.add('d-none');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Whisper Transcription App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'transcription_app/css/style.css' %}">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="text-center">Whisper Transcription App</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-4">
+                            <a href="{% url 'upload_page' %}" class="btn btn-lg btn-outline-primary">
+                                <i class="bi bi-upload"></i> Upload Audio File
+                            </a>
+                            <a href="{% url 'realtime_page' %}" class="btn btn-lg btn-outline-success">
+                                <i class="bi bi-mic"></i> Real-time Transcription
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
