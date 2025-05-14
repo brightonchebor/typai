@@ -98,4 +98,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 WHISPER_MODEL_SIZE = "tiny"  # Choose from tiny, base, small, medium, large
 WHISPER_DEVICE = "cpu"  # Use "cuda" for GPU
-WHISPER_COMPUTE_TYPE = "float16"  # Use "float16" for faster inference on GPU
+WHISPER_COMPUTE_TYPE = "float32"  # Use "float16" for faster inference on GPU

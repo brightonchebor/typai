@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real-time Transcription - Whisper</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'transcription_app/css/style.css' %}">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white">
+                        <h2 class="text-center">Real-time Transcription</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-3">
+                            <button id="startRecording" class="btn btn-lg btn-success">
+                                <i class="bi bi-mic-fill"></i> Start Recording
+                            </button>
+                            <button id="stopRecording" class="btn btn-lg btn-danger d-none">
+                                <i class="bi bi-stop-fill"></i> Stop Recording
+                            </button>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <div class="d-flex align-items-center mb-2">
+                                <h4>Transcription:</h4>
+                                <div id="statusIndicator" class="ms-3">
+                                    <span id="recordingStatus" class="badge bg-secondary d-none">Not recording</span>
+                                    <span id="listeningStatus" class="badge bg-success d-none">Listening...</span>
+                                    <span id="processingStatus" class="badge bg-warning text-dark d-none">Processing...</span>
+                                </div>
+                            </div>
+                            <div class="border rounded p-3 bg-light" style="min-height: 200px;">
+                                <p id="transcriptionOutput"></p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 text-center">
+                            <a href="{% url 'index' %}" class="btn btn-outline-secondary">Back to Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% load static %}
+    <script src="{% static 'transcription_app/js/recorder.js' %}"></script>
+    <script src="{% static 'transcription_app/js/realtime.js' %}"></script>
+</body>
+</html>

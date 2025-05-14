@@ -1,0 +1,44 @@
+/* Style for the transcription app */
+
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 1.2rem;
+}
+
+#transcriptionOutput {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    min-height: 100px;
+    white-space: pre-wrap;
+}
+
+.spinner-border {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Animation for the recording indicator */
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+#listeningStatus {
+    animation: pulse 1.5s infinite ease-in-out;
+}
