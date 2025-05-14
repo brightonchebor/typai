@@ -1,0 +1,11 @@
+
+Django==4.2.9
+channels==4.0.0
+channels-redis==4.1.0
+daphne==4.0.0
+faster-whisper==0.10.0
+numpy==1.26.0
+pydub==0.25.1
+djangorestframework==3.14.0
+python-dotenv==1.0.0
+websockets==12.0
